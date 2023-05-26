@@ -13,7 +13,6 @@ class NTUFPIGUI:
     def criar_widgets(self):
         self.criar_janela()
         self.criar_frame1()
-        self.criar_botao_de_analise_lexica()
         self.criar_treeview_de_tokens()
 
     def criar_janela(self):
@@ -48,15 +47,17 @@ class NTUFPIGUI:
             texto = arquivo.read()
 
         self.escrever_texto_do_arquivo_no_campo(texto)
-
+        self.extrair_tokens()
 
     def escrever_filename_no_campo(self, filename):
         self.campo_com_filename.configure(state="normal")
+        self.campo_com_filename.delete(0, tk.END)
         self.campo_com_filename.insert(0, filename)
         self.campo_com_filename.configure(state="readonly")
 
     def escrever_texto_do_arquivo_no_campo(self, texto):
         self.campo_com_texto_do_arquivo.configure(state="normal")
+        self.campo_com_texto_do_arquivo.delete("1.0", tk.END)
         self.campo_com_texto_do_arquivo.insert("1.0", texto)
         self.campo_com_texto_do_arquivo.configure(state="disabled")
 
@@ -70,10 +71,6 @@ class NTUFPIGUI:
         self.campo_com_texto_do_arquivo = scrolledtext.ScrolledText(self.frame1, width = 40, height=7, font=("Arial", 12),wrap=tk.WORD)
         self.campo_com_texto_do_arquivo.grid(row = 1, columnspan = 2, pady = 5)
         self.campo_com_texto_do_arquivo.config(state="disabled")
-
-    def criar_botao_de_analise_lexica(self):
-        self.botao_de_analise_lexica = ttk.Button(self.janela, text="Extrair tokens", command = self.extrair_tokens)
-        self.botao_de_analise_lexica.pack()
 
     def criar_treeview_de_tokens(self):
         self.treeview_de_tokens = ttk.Treeview(self.janela)
@@ -103,32 +100,12 @@ class NTUFPIGUI:
             self.treeview_de_tokens.insert(parent="", index="end", iid=i, values=(palavra, f"Tipo {randint(1, 9)}"))
 
     def extrair_tokens(self):
-        # Disparar mensagem de erro, se não houver arquivo a ser lido.
-        if self.campo_com_filename.get() == "":
-            MensagemDeSistema.criar_mensagem_de_sistema("error", "Não há arquivo para analisar", "Por favor, selecione um arquivo")
+        # Só modifica a treeview se um novo arquivo for selecionado.
+        if self.campo_com_filename.get() != self.ultimo_arquivo_analisado:
+            self.ultimo_arquivo_analisado = self.campo_com_filename.get()
 
-        else:
-            # Só modifica a treeview se um novo arquivo for selecionado.
-            if self.campo_com_filename.get() != self.ultimo_arquivo_analisado:
-                self.ultimo_arquivo_analisado = self.campo_com_filename.get()
-
-                self.limpar_treeview()
-                self.preencher_treeview()
-
-
-class MensagemDeSistema:
-    @classmethod
-    def criar_mensagem_de_sistema(cls, tipo, titulo, conteudo):
-        tipo = tipo.lower()
-
-        if tipo == "info":
-            msg.showinfo(titulo, conteudo)
-
-        elif tipo == "warning":
-            msg.showwarning(titulo, conteudo)
-
-        elif tipo == "error":
-            msg.showerror(titulo, conteudo)
+            self.limpar_treeview()
+            self.preencher_treeview()
 
 if __name__ == "__main__":
     gui = NTUFPIGUI()
