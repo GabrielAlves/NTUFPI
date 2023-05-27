@@ -7,7 +7,6 @@ from random import randint
 
 class NTUFPIGUI:
     def __init__(self):
-        self.ultimo_arquivo_analisado = ""
         self.criar_widgets()
 
     def criar_widgets(self):
@@ -42,11 +41,7 @@ class NTUFPIGUI:
     def selecionar_arquivo(self):
         filename = fd.askopenfilename(title = "Selecione um arquivo", filetypes = [('text files', '*.txt')])
         self.escrever_filename_no_campo(filename)
-
-        with open(filename, mode = "r", encoding = "utf-8") as arquivo:
-            texto = arquivo.read()
-
-        self.escrever_texto_do_arquivo_no_campo(texto)
+        self.escrever_texto_do_arquivo_no_campo(filename)
         self.extrair_tokens()
 
     def escrever_filename_no_campo(self, filename):
@@ -55,7 +50,10 @@ class NTUFPIGUI:
         self.campo_com_filename.insert(0, filename)
         self.campo_com_filename.configure(state="readonly")
 
-    def escrever_texto_do_arquivo_no_campo(self, texto):
+    def escrever_texto_do_arquivo_no_campo(self, filename):
+        with open(filename, mode = "r", encoding = "utf-8") as arquivo:
+            texto = arquivo.read()
+
         self.campo_com_texto_do_arquivo.configure(state="normal")
         self.campo_com_texto_do_arquivo.delete("1.0", tk.END)
         self.campo_com_texto_do_arquivo.insert("1.0", texto)
@@ -96,16 +94,13 @@ class NTUFPIGUI:
     def preencher_treeview(self):
         palavras = self.campo_com_texto_do_arquivo.get("1.0", tk.END).split()
 
+        # Placeholder temporário para a treeview
         for i, palavra in enumerate(palavras):
             self.treeview_de_tokens.insert(parent="", index="end", iid=i, values=(palavra, f"Tipo {randint(1, 9)}"))
 
     def extrair_tokens(self):
-        # Só modifica a treeview se um novo arquivo for selecionado.
-        if self.campo_com_filename.get() != self.ultimo_arquivo_analisado:
-            self.ultimo_arquivo_analisado = self.campo_com_filename.get()
-
-            self.limpar_treeview()
-            self.preencher_treeview()
+        self.limpar_treeview()
+        self.preencher_treeview()
 
 if __name__ == "__main__":
     gui = NTUFPIGUI()
