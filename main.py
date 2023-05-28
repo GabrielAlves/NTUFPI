@@ -1,4 +1,5 @@
 import antlr4
+from gen.NTUFPILexer import NTUFPILexer
 
 import tkinter as tk
 from tkinter import ttk, scrolledtext, filedialog as fd, messagebox as msg
@@ -92,11 +93,15 @@ class NTUFPIGUI:
             self.treeview_de_tokens.delete(item)
 
     def preencher_treeview(self):
-        palavras = self.campo_com_texto_do_arquivo.get("1.0", tk.END).split()
+        #palavras = self.campo_com_texto_do_arquivo.get("1.0", tk.END)
+        #palavras = antlr4.InputStream(palavras)
+        filename = self.campo_com_filename.get()
+        palavras = antlr4.FileStream(filename, encoding = "utf-8")
+        lexer = NTUFPILexer(palavras)
 
-        # Placeholder temporário para a treeview
-        for i, palavra in enumerate(palavras):
-            self.treeview_de_tokens.insert(parent="", index="end", iid=i, values=(palavra, f"Tipo {randint(1, 9)}"))
+        for i, token in enumerate(lexer.getAllTokens()):
+            self.treeview_de_tokens.insert(parent="", index="end", iid=i, values=(token.text, lexer.ruleNames[token.type - 1]))
+
 
     def extrair_tokens(self):
         self.limpar_treeview()

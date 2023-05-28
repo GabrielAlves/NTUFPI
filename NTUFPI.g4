@@ -1,4 +1,5 @@
 grammar NTUFPI;
+
 noticia: paragrafo+ EOF;
 paragrafo: frase+ '\n'*;
 frase: (ARTIGO | PALAVRA | DIA_DA_SEMANA | MES | HORARIO | ADVERBIO | PORCENTAGEM | PONTUACAO | SIGLA | NOME_PROPRIO | DINHEIRO | ESTADO | NUMERO | DATA | ABREVIACAO)* PONTO_FINAL;
@@ -53,4 +54,4 @@ fragment W : [wW];
 fragment X : [xX];
 fragment Y : [yY];
 fragment Z : [zZ];
-fragment LETRAS_ACENTUADAS : 'á' |'à'|'â'|'ã'|'é'|'ê'|'í'|'ó'|'ô'|'õ'|'ú'|'ç'|'À'|'Á'|'Â'|'Ã'|'É'|'Ê'|'Í'|'Ó'|'Ô'|'Õ'|'Ú'|'Ü'|'Ç';
+//fragment LETRAS_ACENTUADAS : 'á' |'à'|'â'|'ã'|'é'|'ê'|'í'|'ó'|'ô'|'õ'|'ú'|'ç'|'À'|'Á'|'Â'|'Ã'|'É'|'Ê'|'Í'|'Ó'|'Ô'|'Õ'|'Ú'|'Ü'|'Ç';
