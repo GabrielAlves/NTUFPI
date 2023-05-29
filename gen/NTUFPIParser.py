@@ -10,17 +10,17 @@ else:
 
 def serializedATN():
     return [
-        4,1,18,33,2,0,7,0,2,1,7,1,2,2,7,2,1,0,4,0,8,8,0,11,0,12,0,9,1,0,
+        4,1,26,33,2,0,7,0,2,1,7,1,2,2,7,2,1,0,4,0,8,8,0,11,0,12,0,9,1,0,
         1,0,1,1,4,1,15,8,1,11,1,12,1,16,1,1,5,1,20,8,1,10,1,12,1,23,9,1,
-        1,2,5,2,26,8,2,10,2,12,2,29,9,2,1,2,1,2,1,2,0,0,3,0,2,4,0,1,2,0,
-        2,13,15,17,33,0,7,1,0,0,0,2,14,1,0,0,0,4,27,1,0,0,0,6,8,3,2,1,0,
-        7,6,1,0,0,0,8,9,1,0,0,0,9,7,1,0,0,0,9,10,1,0,0,0,10,11,1,0,0,0,11,
-        12,5,0,0,1,12,1,1,0,0,0,13,15,3,4,2,0,14,13,1,0,0,0,15,16,1,0,0,
-        0,16,14,1,0,0,0,16,17,1,0,0,0,17,21,1,0,0,0,18,20,5,1,0,0,19,18,
-        1,0,0,0,20,23,1,0,0,0,21,19,1,0,0,0,21,22,1,0,0,0,22,3,1,0,0,0,23,
-        21,1,0,0,0,24,26,7,0,0,0,25,24,1,0,0,0,26,29,1,0,0,0,27,25,1,0,0,
-        0,27,28,1,0,0,0,28,30,1,0,0,0,29,27,1,0,0,0,30,31,5,14,0,0,31,5,
-        1,0,0,0,4,9,16,21,27
+        1,2,5,2,26,8,2,10,2,12,2,29,9,2,1,2,1,2,1,2,0,0,3,0,2,4,0,1,3,0,
+        2,6,10,20,22,25,33,0,7,1,0,0,0,2,14,1,0,0,0,4,27,1,0,0,0,6,8,3,2,
+        1,0,7,6,1,0,0,0,8,9,1,0,0,0,9,7,1,0,0,0,9,10,1,0,0,0,10,11,1,0,0,
+        0,11,12,5,0,0,1,12,1,1,0,0,0,13,15,3,4,2,0,14,13,1,0,0,0,15,16,1,
+        0,0,0,16,14,1,0,0,0,16,17,1,0,0,0,17,21,1,0,0,0,18,20,5,1,0,0,19,
+        18,1,0,0,0,20,23,1,0,0,0,21,19,1,0,0,0,21,22,1,0,0,0,22,3,1,0,0,
+        0,23,21,1,0,0,0,24,26,7,0,0,0,25,24,1,0,0,0,26,29,1,0,0,0,27,25,
+        1,0,0,0,27,28,1,0,0,0,28,30,1,0,0,0,29,27,1,0,0,0,30,31,5,21,0,0,
+        31,5,1,0,0,0,4,9,16,21,27
     ]
 
 class NTUFPIParser ( Parser ):
@@ -36,13 +36,16 @@ class NTUFPIParser ( Parser ):
     literalNames = [ "<INVALID>", "'\\n'", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "<INVALID>", "'.'" ]
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "'.'" ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "ESTADO", "SIGLA", "ARTIGO", 
-                      "NUMERO", "DIA_DA_SEMANA", "MES", "HORARIO", "DATA", 
-                      "ADVERBIO", "PORCENTAGEM", "PONTUACAO", "ABREVIACAO", 
-                      "PONTO_FINAL", "DINHEIRO", "NOME_PROPRIO", "PALAVRA", 
-                      "Space" ]
+    symbolicNames = [ "<INVALID>", "<INVALID>", "CIDADE", "ESTADO", "SIGLA", 
+                      "CONJUNCAO", "PREPOSICAO", "PREPOSICAO_DE", "PREPOSICAO_EM", 
+                      "PREPOSICAO_POR", "ARTIGO", "NUMERO", "PRONOME", "DIA_DA_SEMANA", 
+                      "MES", "HORARIO", "DATA", "ADVERBIO", "PORCENTAGEM", 
+                      "PONTUACAO", "ABREVIACAO", "PONTO_FINAL", "DINHEIRO", 
+                      "NOME_PROPRIO", "TEMPO", "PALAVRA", "Space" ]
 
     RULE_noticia = 0
     RULE_paragrafo = 1
@@ -52,23 +55,31 @@ class NTUFPIParser ( Parser ):
 
     EOF = Token.EOF
     T__0=1
-    ESTADO=2
-    SIGLA=3
-    ARTIGO=4
-    NUMERO=5
-    DIA_DA_SEMANA=6
-    MES=7
-    HORARIO=8
-    DATA=9
-    ADVERBIO=10
-    PORCENTAGEM=11
-    PONTUACAO=12
-    ABREVIACAO=13
-    PONTO_FINAL=14
-    DINHEIRO=15
-    NOME_PROPRIO=16
-    PALAVRA=17
-    Space=18
+    CIDADE=2
+    ESTADO=3
+    SIGLA=4
+    CONJUNCAO=5
+    PREPOSICAO=6
+    PREPOSICAO_DE=7
+    PREPOSICAO_EM=8
+    PREPOSICAO_POR=9
+    ARTIGO=10
+    NUMERO=11
+    PRONOME=12
+    DIA_DA_SEMANA=13
+    MES=14
+    HORARIO=15
+    DATA=16
+    ADVERBIO=17
+    PORCENTAGEM=18
+    PONTUACAO=19
+    ABREVIACAO=20
+    PONTO_FINAL=21
+    DINHEIRO=22
+    NOME_PROPRIO=23
+    TEMPO=24
+    PALAVRA=25
+    Space=26
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -132,7 +143,7 @@ class NTUFPIParser ( Parser ):
                 self.state = 9 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 262140) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 67107964) != 0)):
                     break
 
             self.state = 11
@@ -320,6 +331,36 @@ class NTUFPIParser ( Parser ):
             else:
                 return self.getToken(NTUFPIParser.ABREVIACAO, i)
 
+        def PREPOSICAO(self, i:int=None):
+            if i is None:
+                return self.getTokens(NTUFPIParser.PREPOSICAO)
+            else:
+                return self.getToken(NTUFPIParser.PREPOSICAO, i)
+
+        def PRONOME(self, i:int=None):
+            if i is None:
+                return self.getTokens(NTUFPIParser.PRONOME)
+            else:
+                return self.getToken(NTUFPIParser.PRONOME, i)
+
+        def CIDADE(self, i:int=None):
+            if i is None:
+                return self.getTokens(NTUFPIParser.CIDADE)
+            else:
+                return self.getToken(NTUFPIParser.CIDADE, i)
+
+        def TEMPO(self, i:int=None):
+            if i is None:
+                return self.getTokens(NTUFPIParser.TEMPO)
+            else:
+                return self.getToken(NTUFPIParser.TEMPO, i)
+
+        def CONJUNCAO(self, i:int=None):
+            if i is None:
+                return self.getTokens(NTUFPIParser.CONJUNCAO)
+            else:
+                return self.getToken(NTUFPIParser.CONJUNCAO, i)
+
         def getRuleIndex(self):
             return NTUFPIParser.RULE_frase
 
@@ -350,10 +391,10 @@ class NTUFPIParser ( Parser ):
             self.state = 27
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 245756) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 65010812) != 0):
                 self.state = 24
                 _la = self._input.LA(1)
-                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 245756) != 0)):
+                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 65010812) != 0)):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)

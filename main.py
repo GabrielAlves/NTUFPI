@@ -7,6 +7,7 @@ import threading
 class NTUFPIGUI:
     def __init__(self):
         self.criar_widgets()
+        self.definir_teclas_de_atalho()
         self.dicionario_de_tipos = {
             "PALAVRA" : "Palavra",
             "ESTADO" : "Estado",
@@ -25,7 +26,11 @@ class NTUFPIGUI:
             "DINHEIRO" : "Dinheiro",
             "NOME_PROPRIO" : "Nome próprio",
             "Space" : "Espaço",
-            "T__0" : "T__0"
+            "PREPOSICAO" : "Preposição",
+            "PRONOME": "Pronome",
+            "CIDADE" : "Cidade",
+            "TEMPO" : "Tempo",
+            "CONJUNCAO" : "Conjunção"
         }
 
         self.tokens_extraidos = []
@@ -43,7 +48,7 @@ class NTUFPIGUI:
     def configurar_janela(self):
         self.janela.title("NT-UFPI")
         self.janela.geometry("450x525")
-        #self.janela.resizable(False, False)
+        self.janela.resizable(False, False)
         self.janela.iconbitmap(self.janela, "img/ufpi_brasao.ico")
 
     def criar_frame1(self):
@@ -147,48 +152,50 @@ class NTUFPIGUI:
 
     def criar_botao_de_filtragem(self):
         self.botao_de_filtragem = ttk.Button(self.frame3, text="Filtrar",
-                                                      command=self.filtrar_tokens)
+                                                      command= lambda : self.filtrar_tokens(""))
         self.botao_de_filtragem.pack()
 
     def limpar_treeview(self):
         for item in self.treeview_de_tokens.get_children():
             self.treeview_de_tokens.delete(item)
 
-    def preencher_treeview(self):
+    def preencher_treeview_pela_primeira_vez(self):
         filename = self.campo_com_filename.get()
         palavras = antlr4.FileStream(filename, encoding = "utf-8")
         lexer = NTUFPILexer(palavras)
 
-        tokens_ja_extraidos = []
         for i, token in enumerate(lexer.getAllTokens()):
-            if token.text in tokens_ja_extraidos:
+            tipo = lexer.ruleNames[token.type - 1]
+
+            if tipo == "T__0":
                 continue
 
-            tipo = lexer.ruleNames[token.type - 1]
             tipo = self.dicionario_de_tipos[tipo]
             token = token.text
-            tokens_ja_extraidos.append(token)
 
             self.tokens_extraidos.append((token, tipo))
             self.treeview_de_tokens.insert(parent="", index="end", iid=i, values=(token, tipo))
 
-
-    def extrair_tokens(self):
-        self.limpar_treeview()
-        self.preencher_treeview()
-
-    def filtrar_tokens(self):
-        self.limpar_treeview()
-
-        token_pesquisado = self.campo_de_pesquisa_de_token.get()
-        tipo_pesquisado = self.campo_de_pesquisa_de_tipo.get()
-
+    def preencher_treeview_apos_primeira_vez(self, token_pesquisado, tipo_pesquisado):
         for i, token in enumerate(self.tokens_extraidos):
             tipo = token[1]
             token = token[0]
 
             if tipo_pesquisado in tipo and token_pesquisado in token:
                 self.treeview_de_tokens.insert(parent="", index="end", iid=i, values=(token, tipo))
+
+    def extrair_tokens(self):
+        self.limpar_treeview()
+        self.preencher_treeview_pela_primeira_vez()
+
+    def filtrar_tokens(self, evento):
+        self.limpar_treeview()
+        token_pesquisado = self.campo_de_pesquisa_de_token.get()
+        tipo_pesquisado = self.campo_de_pesquisa_de_tipo.get()
+        self.preencher_treeview_apos_primeira_vez(token_pesquisado, tipo_pesquisado)
+
+    def definir_teclas_de_atalho(self):
+        self.janela.bind("<Return>", self.filtrar_tokens)
 
 if __name__ == "__main__":
     gui = NTUFPIGUI()
