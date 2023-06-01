@@ -13,13 +13,13 @@ def serializedATN():
         4,1,26,33,2,0,7,0,2,1,7,1,2,2,7,2,1,0,4,0,8,8,0,11,0,12,0,9,1,0,
         1,0,1,1,4,1,15,8,1,11,1,12,1,16,1,1,5,1,20,8,1,10,1,12,1,23,9,1,
         1,2,5,2,26,8,2,10,2,12,2,29,9,2,1,2,1,2,1,2,0,0,3,0,2,4,0,1,3,0,
-        2,6,10,20,22,25,33,0,7,1,0,0,0,2,14,1,0,0,0,4,27,1,0,0,0,6,8,3,2,
+        3,7,11,21,23,26,33,0,7,1,0,0,0,2,14,1,0,0,0,4,27,1,0,0,0,6,8,3,2,
         1,0,7,6,1,0,0,0,8,9,1,0,0,0,9,7,1,0,0,0,9,10,1,0,0,0,10,11,1,0,0,
         0,11,12,5,0,0,1,12,1,1,0,0,0,13,15,3,4,2,0,14,13,1,0,0,0,15,16,1,
         0,0,0,16,14,1,0,0,0,16,17,1,0,0,0,17,21,1,0,0,0,18,20,5,1,0,0,19,
         18,1,0,0,0,20,23,1,0,0,0,21,19,1,0,0,0,21,22,1,0,0,0,22,3,1,0,0,
         0,23,21,1,0,0,0,24,26,7,0,0,0,25,24,1,0,0,0,26,29,1,0,0,0,27,25,
-        1,0,0,0,27,28,1,0,0,0,28,30,1,0,0,0,29,27,1,0,0,0,30,31,5,21,0,0,
+        1,0,0,0,27,28,1,0,0,0,28,30,1,0,0,0,29,27,1,0,0,0,30,31,5,22,0,0,
         31,5,1,0,0,0,4,9,16,21,27
     ]
 
@@ -38,14 +38,15 @@ class NTUFPIParser ( Parser ):
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "'.'" ]
+                     "<INVALID>", "'.'" ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "CIDADE", "ESTADO", "SIGLA", 
-                      "CONJUNCAO", "PREPOSICAO", "PREPOSICAO_DE", "PREPOSICAO_EM", 
-                      "PREPOSICAO_POR", "ARTIGO", "NUMERO", "PRONOME", "DIA_DA_SEMANA", 
-                      "MES", "HORARIO", "DATA", "ADVERBIO", "PORCENTAGEM", 
-                      "PONTUACAO", "ABREVIACAO", "PONTO_FINAL", "DINHEIRO", 
-                      "NOME_PROPRIO", "TEMPO", "PALAVRA", "Space" ]
+    symbolicNames = [ "<INVALID>", "<INVALID>", "Space", "CIDADE", "ESTADO", 
+                      "SIGLA", "CONJUNCAO", "PREPOSICAO", "PREPOSICAO_DE", 
+                      "PREPOSICAO_EM", "PREPOSICAO_POR", "ARTIGO", "NUMERO", 
+                      "PRONOME", "DIA_DA_SEMANA", "MES", "HORARIO", "DATA", 
+                      "ADVERBIO", "PORCENTAGEM", "PONTUACAO", "ABREVIACAO", 
+                      "PONTO_FINAL", "DINHEIRO", "NOME_PROPRIO", "TEMPO", 
+                      "PALAVRA" ]
 
     RULE_noticia = 0
     RULE_paragrafo = 1
@@ -55,31 +56,31 @@ class NTUFPIParser ( Parser ):
 
     EOF = Token.EOF
     T__0=1
-    CIDADE=2
-    ESTADO=3
-    SIGLA=4
-    CONJUNCAO=5
-    PREPOSICAO=6
-    PREPOSICAO_DE=7
-    PREPOSICAO_EM=8
-    PREPOSICAO_POR=9
-    ARTIGO=10
-    NUMERO=11
-    PRONOME=12
-    DIA_DA_SEMANA=13
-    MES=14
-    HORARIO=15
-    DATA=16
-    ADVERBIO=17
-    PORCENTAGEM=18
-    PONTUACAO=19
-    ABREVIACAO=20
-    PONTO_FINAL=21
-    DINHEIRO=22
-    NOME_PROPRIO=23
-    TEMPO=24
-    PALAVRA=25
-    Space=26
+    Space=2
+    CIDADE=3
+    ESTADO=4
+    SIGLA=5
+    CONJUNCAO=6
+    PREPOSICAO=7
+    PREPOSICAO_DE=8
+    PREPOSICAO_EM=9
+    PREPOSICAO_POR=10
+    ARTIGO=11
+    NUMERO=12
+    PRONOME=13
+    DIA_DA_SEMANA=14
+    MES=15
+    HORARIO=16
+    DATA=17
+    ADVERBIO=18
+    PORCENTAGEM=19
+    PONTUACAO=20
+    ABREVIACAO=21
+    PONTO_FINAL=22
+    DINHEIRO=23
+    NOME_PROPRIO=24
+    TEMPO=25
+    PALAVRA=26
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -143,7 +144,7 @@ class NTUFPIParser ( Parser ):
                 self.state = 9 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 67107964) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 134215928) != 0)):
                     break
 
             self.state = 11
@@ -391,10 +392,10 @@ class NTUFPIParser ( Parser ):
             self.state = 27
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 65010812) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 130021624) != 0):
                 self.state = 24
                 _la = self._input.LA(1)
-                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 65010812) != 0)):
+                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 130021624) != 0)):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
